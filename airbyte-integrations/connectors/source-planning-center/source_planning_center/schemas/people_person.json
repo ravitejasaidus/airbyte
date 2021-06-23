@@ -1,0 +1,211 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"type": "object",
+	"properties": {
+		"type": {
+			"type": "string"
+		},
+		"id": {
+			"type": "integer"
+		},
+		"attributes": {
+			"type": "object",
+			"properties": {
+				"given_name": {
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				"first_name": {
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				"nickname": {
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				"middle_name": {
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				"last_name": {
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				"birthdate": {
+					"type": [
+						"null",
+						"string"
+					],
+					"format": "date"
+				},
+				"anniversary": {
+					"type": [
+						"null",
+						"string"
+					],
+					"format": "date"
+				},
+				"gender": {
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				"grade": {
+					"type": [
+						"null",
+						"integer"
+					]
+				},
+				"child": {
+					"type": [
+						"null",
+						"boolean"
+					]
+				},
+				"graduation_year": {
+					"type": [
+						"null",
+						"integer"
+					]
+				},
+				"site_administrator": {
+					"type": [
+						"null",
+						"boolean"
+					]
+				},
+				"accounting_administrator": {
+					"type": [
+						"null",
+						"boolean"
+					]
+				},
+				"people_permissions": {
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				"membership": {
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				"inactivated_at": {
+					"type": [
+						"null",
+						"string"
+					],
+					"format": "date-time"
+				},
+				"status": {
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				"medical_notes": {
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				"created_at": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"updated_at": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"avatar": {
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				"name": {
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				"demographic_avatar_url": {
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				"directory_status": {
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				"remote_id": {
+					"type": [
+						"null",
+						"integer"
+					]
+				},
+				"passed_background_check": {
+					"type": [
+						"null",
+						"boolean"
+					]
+				},
+				"can_create_forms": {
+					"type": [
+						"null",
+						"boolean"
+					]
+				},
+				"school_type": {
+					"type": [
+						"null",
+						"string"
+					]
+				}
+			}
+		},
+		"relationships": {
+			"type": "object",
+			"properties": {
+				"primary_campus": {
+					"type": "object",
+					"properties": {
+						"data": {
+							"type": "object",
+							"properties": {
+								"type": {
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								"id": {
+									"type": [
+										"null",
+										"integer"
+									]
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,104 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "type": {
+            "type": "string"
+        },
+        "id": {
+            "type": "integer"
+        },
+        "attributes": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "member_count": {
+                    "type": [
+                        "null",
+                        "integer"
+                    ]
+                },
+                "primary_contact_name": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "avatar": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "primary_contact_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "relationships": {
+            "type": "object",
+            "properties": {
+                "primary_contact": {
+                    "type": "object",
+                    "properties": {
+                        "data": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "id": {
+                                    "type": [
+                                        "null",
+                                        "integer"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "people": {
+                    "type": "object",
+                    "properties": {
+                        "data": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": [
+                                            "null",
+                                            "string"
+                                        ]
+                                    },
+                                    "id": {
+                                        "type": [
+                                            "null",
+                                            "integer"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

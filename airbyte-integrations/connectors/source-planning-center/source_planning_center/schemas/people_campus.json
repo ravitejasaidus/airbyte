@@ -1,0 +1,158 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "type": {
+            "type": "string"
+        },
+        "id": {
+            "type": "integer"
+        },
+        "attributes": {
+            "type": "object",
+            "properties": {
+                "latitude": {
+                    "type": [
+                        "null",
+                        "number"
+                    ]
+                },
+                "longitude": {
+                    "type": [
+                        "null",
+                        "number"
+                    ]
+                },
+                "description": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "street": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "city": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "state": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "zip": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "country": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "phone_number": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "website": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "twenty_four_hour_time": {
+                    "type": "boolean"
+                },
+                "date_format": {
+                    "type": [
+                        "null",
+                        "integer"
+                    ]
+                },
+                "church_center_enabled": {
+                    "type": "boolean"
+                },
+                "contact_email_address": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "email"
+                },
+                "time_zone": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "geolocation_set_manually": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "created_at": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                },
+                "avatar_url": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                }
+            }
+        },
+        "relationships": {
+            "type": "object",
+            "properties": {
+                "organization": {
+                    "type": "object",
+                    "properties": {
+                        "data": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "id": {
+                                    "type": [
+                                        "null",
+                                        "integer"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
