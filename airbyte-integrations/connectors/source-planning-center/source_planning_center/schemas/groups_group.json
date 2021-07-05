@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$schema": "http://json-schema.org/draft-07/schema",
     "type": "object",
     "properties": {
         "type": {
@@ -11,59 +11,105 @@
         "attributes": {
             "type": "object",
             "properties": {
-                "city": {
+                "archived_at": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                },
+                "contact_email": {
                     "type": [
                         "null",
                         "string"
                     ]
-                },
-                "state": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                },
-                "zip": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                },
-                "street": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                },
-                "location": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                },
-                "primary": {
-                    "type": "boolean"
                 },
                 "created_at": {
-                    "type": [
-                        "null",
-                        "string"
-                    ],
+                    "type": "string",
                     "format": "date-time"
                 },
-                "updated_at": {
+                "description": {
                     "type": [
                         "null",
                         "string"
-                    ],
-                    "format": "date-time"
+                    ]
+                },
+                "enrollment_open": {
+                    "type": "boolean"
+                },
+                "enrollment_strategy": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "header_image": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "location_type_preference": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "memberships_count": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "public_church_center_web_url": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "schedule": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "virtual_location_url": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
                 }
             }
         },
         "relationships": {
             "type": "object",
             "properties": {
-                "person": {
+                "group_type": {
+                    "type": "object",
+                    "properties": {
+                        "data": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "id": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "location": {
                     "type": "object",
                     "properties": {
                         "data": {

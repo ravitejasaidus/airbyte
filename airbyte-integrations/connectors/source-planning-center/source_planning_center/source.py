@@ -27,6 +27,7 @@ from typing import Any, Iterable, List, Mapping, MutableMapping, Optional, Tuple
 import requests
 from airbyte_cdk.sources import AbstractSource
 from airbyte_cdk.sources.streams import Stream
+from airbyte_cdk.models import SyncMode
 from airbyte_cdk.sources.streams.http import HttpStream
 from airbyte_cdk.sources.streams.http.auth.core import HttpAuthenticator
 
@@ -92,6 +93,94 @@ class PlanningCenterStream(HttpStream, ABC):
         """
         return response.json().get("data")
 
+### GROUPS API ###
+
+class PlanningCenterGroupsStream(PlanningCenterStream, ABC):
+    """ 
+    Base class for Planning Center Online Groups v2 API. 
+    """
+
+    url_base = "https://api.planningcenteronline.com/groups/v2/"
+
+    def request_headers(
+        self, stream_state: Mapping[str, Any], stream_slice: Mapping[str, Any] = None, next_page_token: Mapping[str, Any] = None
+    ) -> Mapping[str, Any]:
+        """ 
+        Provide the API version. 
+        """
+        return {"X-PCO-API-Version": "2018-08-01"}
+
+class GroupsAttendance(PlanningCenterGroupsStream):
+    """
+    Each record represents a event attendance in the Groups API.
+    """
+    primary_key = "id"
+
+    def path(self, stream_slice: Mapping[str, Any] = None, **kwargs):
+        event_id = stream_slice["event_id"]
+        return f"groups/{event_id}/attendances"
+
+    def read_records(self, stream_slice: Optional[Mapping[str, Any]] = None, **kwargs) -> Iterable[Mapping[str, Any]]:
+        event_stream = GroupsEvent(authenticator=self.authenticator)
+        for event in event_stream.read_records(sync_mode=SyncMode.full_refresh):
+            yield from super().read_records(stream_slice={"event_id": event["id"]}, **kwargs)
+
+class GroupsEvent(PlanningCenterGroupsStream):
+    """
+    Each record represents a group event in the Groups API.
+    """
+    primary_key = "id"
+
+    def path(self,
+             stream_state: Mapping[str, Any] = None,
+             stream_slice: Mapping[str, Any] = None,
+             next_page_token: Mapping[str, Any] = None
+             ) -> str:
+        return "events"
+
+class GroupsGroup(PlanningCenterGroupsStream):
+    """
+    Each record represents a group in the Groups API.
+    """
+    primary_key = "id"
+
+    def path(self,
+             stream_state: Mapping[str, Any] = None,
+             stream_slice: Mapping[str, Any] = None,
+             next_page_token: Mapping[str, Any] = None
+             ) -> str:
+        return "groups"
+
+class GroupsGroupType(PlanningCenterGroupsStream):
+    """
+    Each record represents a group type in the Groups API.
+    """
+    primary_key = "id"
+
+    def path(self,
+             stream_state: Mapping[str, Any] = None,
+             stream_slice: Mapping[str, Any] = None,
+             next_page_token: Mapping[str, Any] = None
+             ) -> str:
+        return "group_types"
+
+class GroupsMembership(PlanningCenterGroupsStream):
+    """
+    Each record represents a group type in the Groups API.
+    """
+    primary_key = "id"
+
+    def path(self, stream_slice: Mapping[str, Any] = None, **kwargs):
+        group_id = stream_slice["group_id"]
+        return f"groups/{group_id}/memberships"
+
+    def read_records(self, stream_slice: Optional[Mapping[str, Any]] = None, **kwargs) -> Iterable[Mapping[str, Any]]:
+        group_stream = GroupsGroup(authenticator=self.authenticator)
+        for group in group_stream.read_records(sync_mode=SyncMode.full_refresh):
+            yield from super().read_records(stream_slice={"group_id": group["id"]}, **kwargs)
+
+
+### PEOPLE API ###
 
 class PlanningCenterPeopleStream(PlanningCenterStream, ABC):
     """ 
@@ -179,6 +268,22 @@ class PeoplePerson(PlanningCenterPeopleStream):
         return "people"
 
 
+class PeoplePhoneNumber(PlanningCenterPeopleStream):
+    """
+    Each record represents a person's phone number in the People API.
+    """
+    primary_key = "id"
+
+    def path(self, stream_slice: Mapping[str, Any] = None, **kwargs):
+        person_id = stream_slice["person_id"]
+        return f"people/{person_id}/phone_numbers"
+
+    def read_records(self, stream_slice: Optional[Mapping[str, Any]] = None, **kwargs) -> Iterable[Mapping[str, Any]]:
+        person_stream = PeoplePerson(authenticator=self.authenticator)
+        for person in person_stream.read_records(sync_mode=SyncMode.full_refresh):
+            yield from super().read_records(stream_slice={"person_id": person["id"]}, **kwargs)
+
+
 class SourcePlanningCenter(AbstractSource):
     def check_connection(self, logger, config) -> Tuple[bool, any]:
         """
@@ -194,10 +299,13 @@ class SourcePlanningCenter(AbstractSource):
         """
         :param config: A Mapping of the user input configuration as defined in the connector spec.
         """
-        app_id = config["app_id"]
-        secret = config["secret"]
+        app_id = config.get("app_id")
+        secret = config.get("secret")
         auth = BasicAuthenticator(app_id=app_id, secret=secret)
         return [
+            GroupsEvent(authenticator=auth),
+            GroupsGroupType(authenticator=auth),
+            GroupsGroup(authenticator=auth),
             PeoplePerson(authenticator=auth),
             PeopleAddress(authenticator=auth),
             PeopleEmail(authenticator=auth),
